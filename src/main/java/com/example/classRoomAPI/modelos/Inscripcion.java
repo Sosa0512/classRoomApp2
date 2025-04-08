@@ -1,17 +1,33 @@
 package com.example.classRoomAPI.modelos;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "inscripcion")
 public class Inscripcion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
+    @Column(name = "id_inscripcion", nullable = false, unique = true)
     private int idInscripcion;
+
+    @Column(name = "fecha_inscripcion", nullable = false)
     private LocalDateTime fechaInscripcion;
 
-    // Constructor vacío
+    @ManyToOne
+    @JoinColumn(name = "id_estudiante")
+    @JsonBackReference
+    private Estudiante estudiante;
+
+    @ManyToOne
+    @JoinColumn(name = "id_curso")
+    @JsonBackReference
+    private Curso curso;
+
     public Inscripcion() {
-        this.fechaInscripcion = LocalDateTime.now(); // Asignar fecha actual por defecto
     }
 
-    // Constructor con parámetros
     public Inscripcion(int idInscripcion, LocalDateTime fechaInscripcion) {
         this.idInscripcion = idInscripcion;
         this.fechaInscripcion = fechaInscripcion;
@@ -30,11 +46,14 @@ public class Inscripcion {
     }
 
     public void setFechaInscripcion(LocalDateTime fechaInscripcion) {
+        if (fechaInscripcion == null) {
+            throw new IllegalArgumentException("La fecha de inscripción no puede ser nula.");
+        }
         this.fechaInscripcion = fechaInscripcion;
     }
 
-    public void mostrarInfo() {
-        System.out.println("ID Inscripción: " + idInscripcion);
-        System.out.println("Fecha de Inscripción: " + fechaInscripcion);
+    @Override
+    public String toString() {
+        return "Inscripcion {ID: " + idInscripcion + ", Fecha: " + fechaInscripcion + "}";
     }
 }

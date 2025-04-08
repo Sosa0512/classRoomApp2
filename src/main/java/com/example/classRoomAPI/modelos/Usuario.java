@@ -1,33 +1,62 @@
 package com.example.classRoomAPI.modelos;
-
 import com.example.classRoomAPI.ayudas.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
+@Entity
+@Table(name = "usuario")
 public class Usuario {
+    private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
 
-    private Integer idUsuario;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_usuario", nullable = false, unique = true)
+    private int idUsuario;
+
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
-    private String contraseña;
-    private String correoElectrinico;
+
+    @Column(name = "email", nullable = false, unique = true, length = 150)
+    private String email;
+
+    @Column(name = "contrasena", nullable = false, length = 255)
+    private String contrasena;
+
+    @Column(name = "telefono", length = 20, nullable = true)
     private String telefono;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_usuario", nullable = false)
     private TipoUsuario tipoUsuario;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Estudiante estudiante;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Docente docente;
+
     public Usuario() {
+        // Constructor vacío requerido por JPA
     }
 
-    public Usuario(Integer idUsuario, String nombre, String contraseña, String correoElectrinico, String telefono, TipoUsuario tipoUsuario) {
-        this.idUsuario = idUsuario;
-        this.nombre = nombre;
-        this.contraseña = contraseña;
-        this.correoElectrinico = correoElectrinico;
-        this.telefono = telefono;
-        this.tipoUsuario = tipoUsuario;
+    public Usuario(String nombre, String email, String contrasena, String telefono, TipoUsuario tipoUsuario) {
+        this.idUsuario = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
+        setNombre(nombre);
+        setEmail(email);
+        setContrasena(contrasena);
+        setTelefono(telefono);
+        setTipoUsuario(tipoUsuario);
     }
 
-    public Integer getIdUsuario() {
+    // Getters y Setters
+    public int getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -36,23 +65,32 @@ public class Usuario {
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío.");
+        }
         this.nombre = nombre;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("El email no puede estar vacío.");
+        }
+        this.email = email;
     }
 
-    public String getCorreoElectrinico() {
-        return correoElectrinico;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setCorreoElectrinico(String correoElectrinico) {
-        this.correoElectrinico = correoElectrinico;
+    public void setContrasena(String contrasena) {
+        if (contrasena == null || contrasena.length() < 6) {
+            throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres.");
+        }
+        this.contrasena = contrasena;
     }
 
     public String getTelefono() {
@@ -68,6 +106,14 @@ public class Usuario {
     }
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        if (tipoUsuario == null) {
+            throw new IllegalArgumentException("El tipo de usuario no puede ser nulo.");
+        }
         this.tipoUsuario = tipoUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario {ID: " + idUsuario + ", Nombre: " + nombre + ", Email: " + email + ", Teléfono: " + telefono + ", Tipo: " + tipoUsuario + "}";
     }
 }
