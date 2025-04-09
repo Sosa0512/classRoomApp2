@@ -1,11 +1,20 @@
 package com.example.classRoomAPI.modelos;
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
+=======
+import jakarta.persistence.*;
+import java.util.concurrent.atomic.AtomicInteger;
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
 @Entity
 @Table(name = "docente")
 public class Docente {
+<<<<<<< HEAD
+=======
+    private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -24,9 +33,9 @@ public class Docente {
     public Docente() {
     }
 
-    public Docente(int idDocente, String especialidad) {
-        this.idDocente = idDocente;
-        this.especialidad = especialidad;
+    public Docente(String especialidad) {
+        this.idDocente = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
+        setEspecialidad(especialidad); // Usa el setter para validación
     }
 
     public int getIdDocente() {

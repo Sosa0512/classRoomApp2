@@ -1,12 +1,20 @@
 package com.example.classRoomAPI.modelos;
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonBackReference;
+=======
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
     @Table(name = "calificacion")
     public class Calificacion {
+<<<<<<< HEAD
+=======
+        private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -32,8 +40,20 @@ import java.time.LocalDate;
     public Calificacion() {
     }
 
+<<<<<<< HEAD
     public Calificacion(int idCalificacion, BigDecimal nota, LocalDate fechaEvaluacion) {
         this.idCalificacion = idCalificacion;
+=======
+    public Calificacion(BigDecimal nota, LocalDate fechaEvaluacion) {
+        if (nota == null || nota.compareTo(BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("La nota no puede ser nula o negativa.");
+        }
+        if (fechaEvaluacion == null) {
+            throw new IllegalArgumentException("La fecha de evaluación no puede ser nula.");
+        }
+
+        this.idCalificacion = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
         this.nota = nota;
         this.fechaEvaluacion = fechaEvaluacion;
     }

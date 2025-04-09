@@ -1,11 +1,19 @@
 package com.example.classRoomAPI.modelos;
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonBackReference;
+=======
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "inscripcion")
 public class Inscripcion {
+<<<<<<< HEAD
+=======
+    private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -15,6 +23,7 @@ public class Inscripcion {
     @Column(name = "fecha_inscripcion", nullable = false)
     private LocalDateTime fechaInscripcion;
 
+<<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "id_estudiante")
     @JsonBackReference
@@ -31,6 +40,14 @@ public class Inscripcion {
     public Inscripcion(int idInscripcion, LocalDateTime fechaInscripcion) {
         this.idInscripcion = idInscripcion;
         this.fechaInscripcion = fechaInscripcion;
+=======
+    public Inscripcion() {
+    }
+
+    public Inscripcion(LocalDateTime fechaInscripcion) {
+        this.idInscripcion = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
+        this.fechaInscripcion = (fechaInscripcion != null) ? fechaInscripcion : LocalDateTime.now();
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
     }
 
     public int getIdInscripcion() {

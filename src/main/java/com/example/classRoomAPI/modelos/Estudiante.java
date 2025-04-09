@@ -1,11 +1,21 @@
 package com.example.classRoomAPI.modelos;
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
+=======
+import jakarta.persistence.*;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
 @Entity
 @Table(name = "estudiante")
 public class Estudiante {
+<<<<<<< HEAD
+=======
+    private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -22,6 +32,7 @@ public class Estudiante {
     @Column(name = "direccion", nullable = false, length = 255)
     private String direccion;
 
+<<<<<<< HEAD
     @OneToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @JsonBackReference
@@ -35,6 +46,17 @@ public class Estudiante {
         this.grado = grado;
         this.fechaNacimiento = fechaNacimiento;
         this.direccion = direccion;
+=======
+    public Estudiante() {
+        // Constructor vacío requerido por JPA
+    }
+
+    public Estudiante(int grado, Date fechaNacimiento, String direccion) {
+        this.idEstudiante = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
+        setGrado(grado);
+        setFechaNacimiento(fechaNacimiento);
+        setDireccion(direccion);
+>>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
     }
 
     // Getters y Setters
