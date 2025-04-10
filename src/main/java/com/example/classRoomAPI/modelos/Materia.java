@@ -1,8 +1,11 @@
 package com.example.classRoomAPI.modelos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "materia")
@@ -11,32 +14,38 @@ public class Materia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
     @Column(name = "id_materia", nullable = false, unique = true)
-    private int idMateria;
-
+    private Integer idMateria;
     @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
+    @Column(name = "id_curso")
+    private Integer idCurso;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso")
+    @JoinColumn(name = "fk_curso", referencedColumnName = "id_curso")
     @JsonBackReference
     private Curso curso;
+
+    @OneToMany (mappedBy = "materia")
+    @JsonManagedReference
+    private List<Calificacion> calificacion;
 
     public Materia() {
         // Constructor vacío requerido por JPA
     }
 
-    public Materia(int idMateria, String nombre, Curso curso) {
+    public Materia(Integer idMateria, String nombre, Integer idCurso) {
         this.idMateria = idMateria;
         this.nombre = nombre;
-        this.curso = curso;
+        this.idCurso = idCurso;
     }
 
     // Getters y Setters
-    public int getIdMateria() {
+
+    public Integer getIdMateria() {
         return idMateria;
     }
 
-    public void setIdMateria(int idMateria) {
+    public void setIdMateria(Integer idMateria) {
         this.idMateria = idMateria;
     }
 
@@ -45,14 +54,14 @@ public class Materia {
     }
 
     public void setNombre(String nombre) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la materia no puede estar vacío.");
-        }
         this.nombre = nombre;
     }
 
-    @Override
-    public String toString() {
-        return "Materia {ID: " + idMateria + ", Nombre: " + nombre + "}";
+    public Integer getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(Integer idCurso) {
+        this.idCurso = idCurso;
     }
 }

@@ -10,79 +10,76 @@ import java.time.LocalDate;
     public class Calificacion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
-    @Column(name = "id_calificacion", nullable = false, unique = true)
-    private int idCalificacion;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_calificacion")
+    private Integer idCalificacion;
+    @Column(name = "id_estudiante")
+    private Integer idEstudiante;
+    @Column(name = "id_materia")
+    private Integer idMateria;
     @Column(name = "nota", nullable = false, precision = 5, scale = 2)
-    private BigDecimal nota;
-
+    private Integer nota;
     @Column(name = "fecha_evaluacion", nullable = false)
-    private LocalDate fechaEvaluacion;
+    private Integer fechaEvaluacion;
 
     @ManyToOne
-    @JoinColumn(name = "id_estudiante")
+    @JoinColumn(name = "fk_estudiante",referencedColumnName = "id_estudiante")
     @JsonBackReference
     private Estudiante estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "id_materia")
+    @JoinColumn(name = "fk_materia",referencedColumnName = "id_materia")
     @JsonBackReference
     private Materia materia;
 
     public Calificacion() {
     }
 
-    public Calificacion(int idCalificacion, BigDecimal nota, LocalDate fechaEvaluacion, Estudiante estudiante, Materia materia) {
+    public Calificacion(Integer idCalificacion, Integer idEstudiante, Integer idMateria, Integer nota, Integer fechaEvaluacion) {
         this.idCalificacion = idCalificacion;
+        this.idEstudiante = idEstudiante;
+        this.idMateria = idMateria;
         this.nota = nota;
         this.fechaEvaluacion = fechaEvaluacion;
-        this.estudiante = estudiante;
-        this.materia = materia;
     }
 
-    public int getIdCalificacion() {
+    public Integer getIdCalificacion() {
         return idCalificacion;
     }
 
-    public void setIdCalificacion(int idCalificacion) {
+    public void setIdCalificacion(Integer idCalificacion) {
         this.idCalificacion = idCalificacion;
     }
 
-    public BigDecimal getNota() {
+    public Integer getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public Integer getIdMateria() {
+        return idMateria;
+    }
+
+    public void setIdMateria(Integer idMateria) {
+        this.idMateria = idMateria;
+    }
+
+    public Integer getNota() {
         return nota;
     }
 
-    public void setNota(BigDecimal nota) {
+    public void setNota(Integer nota) {
         this.nota = nota;
     }
 
-    public LocalDate getFechaEvaluacion() {
+    public Integer getFechaEvaluacion() {
         return fechaEvaluacion;
     }
 
-    public void setFechaEvaluacion(LocalDate fechaEvaluacion) {
+    public void setFechaEvaluacion(Integer fechaEvaluacion) {
         this.fechaEvaluacion = fechaEvaluacion;
-    }
-
-    public Estudiante getEstudiante() {
-        return estudiante;
-    }
-
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
-    }
-
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
-
-    @Override
-    public String toString() {
-        return "Calificacion {ID: " + idCalificacion + ", Nota: " + nota + ", Fecha: " + fechaEvaluacion + "}";
     }
 }

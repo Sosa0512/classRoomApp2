@@ -12,14 +12,15 @@ public class Asistencia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
     @Column(name = "id_asistencia", nullable = false, unique = true)
-    private int idAsistencia;
-
+    private Integer idAsistencia;
+    @Column(name = "id_estudiante")
+    private Integer idEstudiante;
+    @Column(name = "id_curso")
+    private Integer idCurso;
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false)
-    private Estado estado;
+    private Integer Estado;
 
     @ManyToOne
     @JoinColumn(name = "id_estudiante")
@@ -34,16 +35,36 @@ public class Asistencia {
     public Asistencia() {
     }
 
-    public Asistencia(int idAsistencia, LocalDate fecha, Estado estado, Estudiante estudiante, Curso curso) {
+    public Asistencia(Integer idAsistencia, Integer idEstudiante, Integer idCurso, LocalDate fecha, Integer estado) {
         this.idAsistencia = idAsistencia;
+        this.idEstudiante = idEstudiante;
+        this.idCurso = idCurso;
         this.fecha = fecha;
-        this.estado = estado;
-        this.estudiante = estudiante;
-        this.curso = curso;
+        Estado = estado;
     }
 
-    public int getIdAsistencia() {
+    public Integer getIdAsistencia() {
         return idAsistencia;
+    }
+
+    public void setIdAsistencia(Integer idAsistencia) {
+        this.idAsistencia = idAsistencia;
+    }
+
+    public Integer getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public Integer getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(Integer idCurso) {
+        this.idCurso = idCurso;
     }
 
     public LocalDate getFecha() {
@@ -51,25 +72,14 @@ public class Asistencia {
     }
 
     public void setFecha(LocalDate fecha) {
-        if (fecha == null) {
-            throw new IllegalArgumentException("La fecha no puede ser nula.");
-        }
         this.fecha = fecha;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Integer getEstado() {
+        return Estado;
     }
 
-    public void setEstado(Estado estado) {
-        if (estado == null) {
-            throw new IllegalArgumentException("El estado de asistencia no puede ser nulo.");
-        }
-        this.estado = estado;
-    }
-
-    @Override
-    public String toString() {
-        return "Asistencia {ID: " + idAsistencia + ", Fecha: " + fecha + ", Estado: " + estado + "}";
+    public void setEstado(Integer estado) {
+        Estado = estado;
     }
 }

@@ -3,7 +3,6 @@ package com.example.classRoomAPI.modelos;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
-import jakarta.persistence.*;
 
 @Entity
 @Table(name = "docente")
@@ -13,7 +12,8 @@ public class Docente {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
     @Column(name = "id_docente", nullable = false, unique = true)
     private int idDocente;
-
+    @Column(name = "id_usuario")
+    private Integer idUsuario;
     @Column(name = "especialidad", nullable = false, length = 100)
     private String especialidad;
 
@@ -26,10 +26,10 @@ public class Docente {
     public Docente() {
     }
 
-    public Docente(int idDocente, String especialidad, List<Curso> cursos) {
+    public Docente(int idDocente, Integer idUsuario, String especialidad) {
         this.idDocente = idDocente;
+        this.idUsuario = idUsuario;
         this.especialidad = especialidad;
-        this.cursos = cursos;
     }
 
     public int getIdDocente() {
@@ -40,19 +40,19 @@ public class Docente {
         this.idDocente = idDocente;
     }
 
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getEspecialidad() {
         return especialidad;
     }
 
     public void setEspecialidad(String especialidad) {
-        if (especialidad == null || especialidad.trim().isEmpty()) {
-            throw new IllegalArgumentException("La especialidad no puede estar vacía.");
-        }
         this.especialidad = especialidad;
-    }
-
-    @Override
-    public String toString() {
-        return "Docente {ID: " + idDocente + ", Especialidad: " + especialidad + "}";
     }
 }

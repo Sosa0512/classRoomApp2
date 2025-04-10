@@ -11,37 +11,55 @@ public class Inscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
     @Column(name = "id_inscripcion", nullable = false, unique = true)
-    private int idInscripcion;
-
+    private Integer idInscripcion;
+    @Column(name = "id_estudiante")
+    private Integer idEstudiante;
+    @Column(name = "id_curso")
+    private Integer idCurso;
     @Column(name = "fecha_inscripcion", nullable = false)
     private LocalDateTime fechaInscripcion;
 
-    @ManyToOne
-    @JoinColumn(name = "id_estudiante")
+    @OneToOne
+    @JoinColumn(name = "fk_estudiante", referencedColumnName = "id_estudiante")
     @JsonBackReference
     private Estudiante estudiante;
 
-    @ManyToOne
-    @JoinColumn(name = "id_curso")
-    @JsonBackReference
+    @OneToOne
+    @JoinColumn(name = "fk_curso", referencedColumnName = "id_curso")
     private Curso curso;
 
     public Inscripcion() {
     }
 
-    public Inscripcion(int idInscripcion, LocalDateTime fechaInscripcion, Estudiante estudiante, Curso curso) {
+    public Inscripcion(Integer idInscripcion, Integer idEstudiante, Integer idCurso, LocalDateTime fechaInscripcion) {
         this.idInscripcion = idInscripcion;
+        this.idEstudiante = idEstudiante;
+        this.idCurso = idCurso;
         this.fechaInscripcion = fechaInscripcion;
-        this.estudiante = estudiante;
-        this.curso = curso;
     }
 
-    public int getIdInscripcion() {
+    public Integer getIdInscripcion() {
         return idInscripcion;
     }
 
-    public void setIdInscripcion(int idInscripcion) {
+    public void setIdInscripcion(Integer idInscripcion) {
         this.idInscripcion = idInscripcion;
+    }
+
+    public Integer getIdEstudiante() {
+        return idEstudiante;
+    }
+
+    public void setIdEstudiante(Integer idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+
+    public Integer getIdCurso() {
+        return idCurso;
+    }
+
+    public void setIdCurso(Integer idCurso) {
+        this.idCurso = idCurso;
     }
 
     public LocalDateTime getFechaInscripcion() {
@@ -49,14 +67,6 @@ public class Inscripcion {
     }
 
     public void setFechaInscripcion(LocalDateTime fechaInscripcion) {
-        if (fechaInscripcion == null) {
-            throw new IllegalArgumentException("La fecha de inscripción no puede ser nula.");
-        }
         this.fechaInscripcion = fechaInscripcion;
-    }
-
-    @Override
-    public String toString() {
-        return "Inscripcion {ID: " + idInscripcion + ", Fecha: " + fechaInscripcion + "}";
     }
 }
