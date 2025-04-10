@@ -1,21 +1,13 @@
 package com.example.classRoomAPI.modelos;
 
 import com.example.classRoomAPI.ayudas.Estado;
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonBackReference;
-=======
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "asistencia")
 public class Asistencia {
-<<<<<<< HEAD
-=======
-    private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -42,17 +34,12 @@ public class Asistencia {
     public Asistencia() {
     }
 
-    public Asistencia(LocalDate fecha, Estado estado) {
-        if (fecha == null) {
-            throw new IllegalArgumentException("La fecha no puede ser nula.");
-        }
-        if (estado == null) {
-            throw new IllegalArgumentException("El estado de asistencia no puede ser nulo.");
-        }
-
-        this.idAsistencia = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
+    public Asistencia(int idAsistencia, LocalDate fecha, Estado estado, Estudiante estudiante, Curso curso) {
+        this.idAsistencia = idAsistencia;
         this.fecha = fecha;
         this.estado = estado;
+        this.estudiante = estudiante;
+        this.curso = curso;
     }
 
     public int getIdAsistencia() {

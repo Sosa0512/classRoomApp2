@@ -1,19 +1,12 @@
 package com.example.classRoomAPI.modelos;
-<<<<<<< HEAD
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-=======
 import jakarta.persistence.*;
-import java.util.concurrent.atomic.AtomicInteger;
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
 @Entity
 @Table(name = "curso")
 public class Curso {
-<<<<<<< HEAD
-=======
-    private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -32,9 +25,10 @@ public class Curso {
     public Curso() {
     }
 
-    public Curso(String nombre) {
-        this.idCurso = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
-        setNombre(nombre); // Usa el setter para aplicar validación
+    public Curso(int idCurso, String nombre, Docente docente) {
+        this.idCurso = idCurso;
+        this.nombre = nombre;
+        this.docente = docente;
     }
 
     public int getIdCurso() {
@@ -50,10 +44,15 @@ public class Curso {
     }
 
     public void setNombre(String nombre) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre del curso no puede estar vacío.");
-        }
         this.nombre = nombre;
+    }
+
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
     }
 
     @Override

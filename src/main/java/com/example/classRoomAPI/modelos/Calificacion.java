@@ -1,20 +1,13 @@
 package com.example.classRoomAPI.modelos;
-<<<<<<< HEAD
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-=======
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
     @Table(name = "calificacion")
     public class Calificacion {
-<<<<<<< HEAD
-=======
-        private static final AtomicInteger contadorId = new AtomicInteger(1); // Simula AUTO_INCREMENT
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Simula AUTO_INCREMENT en BD
@@ -40,22 +33,12 @@ import java.util.concurrent.atomic.AtomicInteger;
     public Calificacion() {
     }
 
-<<<<<<< HEAD
-    public Calificacion(int idCalificacion, BigDecimal nota, LocalDate fechaEvaluacion) {
+    public Calificacion(int idCalificacion, BigDecimal nota, LocalDate fechaEvaluacion, Estudiante estudiante, Materia materia) {
         this.idCalificacion = idCalificacion;
-=======
-    public Calificacion(BigDecimal nota, LocalDate fechaEvaluacion) {
-        if (nota == null || nota.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("La nota no puede ser nula o negativa.");
-        }
-        if (fechaEvaluacion == null) {
-            throw new IllegalArgumentException("La fecha de evaluación no puede ser nula.");
-        }
-
-        this.idCalificacion = contadorId.getAndIncrement(); // Simula AUTO_INCREMENT
->>>>>>> aba0ff467a4dd5a381d9b6f468058108862fe71f
         this.nota = nota;
         this.fechaEvaluacion = fechaEvaluacion;
+        this.estudiante = estudiante;
+        this.materia = materia;
     }
 
     public int getIdCalificacion() {
@@ -71,9 +54,6 @@ import java.util.concurrent.atomic.AtomicInteger;
     }
 
     public void setNota(BigDecimal nota) {
-        if (nota == null || nota.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("La nota no puede ser nula o negativa.");
-        }
         this.nota = nota;
     }
 
@@ -82,10 +62,23 @@ import java.util.concurrent.atomic.AtomicInteger;
     }
 
     public void setFechaEvaluacion(LocalDate fechaEvaluacion) {
-        if (fechaEvaluacion == null) {
-            throw new IllegalArgumentException("La fecha de evaluación no puede ser nula.");
-        }
         this.fechaEvaluacion = fechaEvaluacion;
+    }
+
+    public Estudiante getEstudiante() {
+        return estudiante;
+    }
+
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
+    }
+
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 
     @Override
