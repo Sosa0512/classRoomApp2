@@ -22,12 +22,12 @@ public class Asistencia {
     private Integer Estado;
 
     @ManyToOne
-    @JoinColumn(name = "id_estudiante")
+    @JoinColumn(name = "fk_estudiante", referencedColumnName = "id_estudiante")
     @JsonBackReference
     private Estudiante estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso")
+    @JoinColumn(name = "fk_curso", referencedColumnName = "id_curso")
     @JsonBackReference
     private Curso curso;
 
