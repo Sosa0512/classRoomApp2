@@ -1,6 +1,5 @@
 package com.example.classRoomAPI.modelos;
 
-import com.example.classRoomAPI.ayudas.Estado;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.time.LocalDate;
